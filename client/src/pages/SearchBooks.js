@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-
+import { useMutation } from "@apollo/client";
 import Auth from '../utils/auth';
 import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
+import { SAVE_BOOK } from '../utils/mutations';
 
-const SearchBooks = () => {
+const SearchBooks = (props) => {
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
   // create state for holding our search field data
@@ -23,6 +24,12 @@ const SearchBooks = () => {
   // create method to search for books and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    const { name, value } = event.target;
+    setSavedBookIds({
+      ...savedBookIds,
+      [name]: value
+    });
 
     if (!searchInput) {
       return false;
@@ -59,6 +66,9 @@ const SearchBooks = () => {
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+
+    const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
     if (!token) {
       return false;

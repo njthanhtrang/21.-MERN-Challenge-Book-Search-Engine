@@ -10,7 +10,10 @@ const resolvers = {
         const userData = await User.findOne({})
           .select("-__v -password")
           .populate("savedBooks");
+
+          return userData;
       }
+      throw new AuthenticationError("You are not logged in!");
     },
     user: async (parent, { username }) => {
       return User.findOne({ username })

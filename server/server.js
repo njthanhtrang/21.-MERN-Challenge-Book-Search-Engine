@@ -32,9 +32,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // wild GET route for server, no explicit route defined, respond with prod-ready React front-end code
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+// });
 
 // delete?
 // app.use(routes);

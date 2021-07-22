@@ -33,17 +33,16 @@ const SignupForm = () => {
     try {
       // const response = await createUser(userFormData);
 
-      const { response } = await addUser({
+      const { data } = await addUser({
         variables: { ...userFormData },
       });
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      // if (!response.ok) {
+      //   throw new Error('something went wrong!');
+      // }
 
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(response.addUser.token);
+      // const { token, user } = await response.json();
+      // console.log(user);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -62,7 +61,7 @@ const SignupForm = () => {
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your signup!
+          {error && <div>Sign up failed</div>}
         </Alert>
 
         <Form.Group>
@@ -110,7 +109,6 @@ const SignupForm = () => {
           Submit
         </Button>
       </Form>
-      {error && <div>Sign up failed</div>}
     </>
   );
 };

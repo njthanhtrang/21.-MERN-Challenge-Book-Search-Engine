@@ -67,7 +67,6 @@ const SearchBooks = (props) => {
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-
     const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
     if (!token) {
@@ -75,7 +74,12 @@ const SearchBooks = (props) => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
+      const { data } = await saveBook({
+        variables: { ...savedBookIds },
+      });
+      // const response = await saveBook(bookToSave, token);
+
+      Auth.saveBook(data.saveBook.token);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
@@ -83,8 +87,8 @@ const SearchBooks = (props) => {
 
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   };
 

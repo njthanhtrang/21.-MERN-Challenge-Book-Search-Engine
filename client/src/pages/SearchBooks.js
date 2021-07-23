@@ -79,8 +79,6 @@ const SearchBooks = (props) => {
       });
       // const response = await saveBook(bookToSave, token);
 
-      Auth.saveBook(response.saveBook.token);
-
       if (!response.ok) {
         throw new Error('something went wrong!');
       }

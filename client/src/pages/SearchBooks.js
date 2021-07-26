@@ -71,10 +71,10 @@ const SearchBooks = (props) => {
     }
 
     try {
-      const { response } = await saveBook({
-        variables: { ...savedBookIds },
-      });
-      // const response = await saveBook(bookToSave, token);
+      // const { response } = await saveBook({
+      //   variables: { ...savedBookIds },
+      // });
+      const response = await saveBook(bookToSave, token);
 
       if (!response.ok) {
         throw new Error('something went wrong!');

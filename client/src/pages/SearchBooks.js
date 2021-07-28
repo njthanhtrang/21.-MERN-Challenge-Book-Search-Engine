@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { saveBook, searchGoogleBooks } from "../utils/API";
+import { searchGoogleBooks } from "../utils/API";
 import { saveBookIds, getSavedBookIds } from "../utils/localStorage";
 import { SAVE_BOOK } from "../utils/mutations";
 
@@ -148,7 +148,6 @@ const SearchBooks = (props) => {
                   {Auth.loggedIn() && (
                     <Button
                       disabled={
-                        savedBookIds.length !== 0 &&
                         savedBookIds.some(
                           (savedBookId) => savedBookId === book.bookId
                         )
@@ -156,8 +155,7 @@ const SearchBooks = (props) => {
                       className="btn-block btn-info"
                       onClick={() => handleSaveBook(book.bookId)}
                     >
-                      {savedBookIds.length !== 0 &&
-                      savedBookIds.some(
+                      {savedBookIds?.some(
                         (savedBookId) => savedBookId === book.bookId
                       )
                         ? "This book has already been saved!"

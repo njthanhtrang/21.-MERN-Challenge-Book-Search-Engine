@@ -33,6 +33,7 @@ const SignupForm = () => {
     try {
       // const response = await createUser(userFormData);
 
+      debugger;
       const { data } = await addUser({
         variables: { ...userFormData },
       });
@@ -43,6 +44,7 @@ const SignupForm = () => {
 
       // const { token, user } = await response.json();
       // console.log(user);
+      Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -109,6 +111,7 @@ const SignupForm = () => {
           Submit
         </Button>
       </Form>
+      {error && <div>Sign up failed</div>}
     </>
   );
 };

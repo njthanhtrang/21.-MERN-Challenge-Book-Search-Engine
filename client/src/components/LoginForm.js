@@ -92,6 +92,7 @@ const LoginForm = (props) => {
           Submit
         </Button>
       </Form>
+      {error && <div>Login failed</div>}
     </>
   );
 };

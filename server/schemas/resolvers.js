@@ -8,7 +8,6 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({})
           .select("-__v -password")
-          .populate("savedBooks");
 
           return userData;
       }
@@ -17,7 +16,8 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username })
         .select("-__v -password")
-        .populate("savedBooks");
+// don't use .populate because when using a schema inside a table its essently apart of that table, cannot "join"
+// Book is not a model, only schema, looking for array of obj not joined model
     },
   },
   Mutation: {

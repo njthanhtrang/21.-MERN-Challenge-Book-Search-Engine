@@ -15,19 +15,21 @@ module.exports = {
   authMiddleware: function ({ req }) {
     // allows token to be sent via  req.query or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
-console.log("tokennnnn", token );
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
       token = token.split(" ").pop().trim();
+      console.log("tokennnnn", token );
     }
 
     if (!token) {
       // return res.status(400).json({ message: 'You have no token!' });
+      console.log("test");
       return req;
     }
 
     // verify token and get user data out of it
     try {
+      console.log("test");
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
       console.log("req.user:", req.user);
